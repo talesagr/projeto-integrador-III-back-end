@@ -1,6 +1,6 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain;
 
-public enum TipoPessoa {
+public enum UserType {
     AUTOR,
     ATENDENTE,
     CLIENTE

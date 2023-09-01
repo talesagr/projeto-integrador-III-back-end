@@ -9,12 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pessoa {
+public class People {
 
-    private String nome;
     private int idade;
     private String CPF;
     private String endereco;
     private String celular;
-    private TipoPessoa tipoPessoa;
+    private UserType userType;
 }

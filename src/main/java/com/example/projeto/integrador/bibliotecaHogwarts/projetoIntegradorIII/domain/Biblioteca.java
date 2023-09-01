@@ -15,5 +15,5 @@ public class Biblioteca {
 
     private String nome;
     private List<Livro> livros;
-    private List<Usuario> usuarios;
+    private List<User> users;
 }

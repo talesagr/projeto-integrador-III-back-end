@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class User extends People{
 
-    private Pessoa dadosPessoais;
-    private String senha;
+    private String name;
+    private String password;
     private String email;
+    private UserType userType;
 }
