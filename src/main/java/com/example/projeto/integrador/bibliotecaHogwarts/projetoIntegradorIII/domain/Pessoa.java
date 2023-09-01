@@ -16,4 +16,5 @@ public class Pessoa {
     private String CPF;
     private String endereco;
     private String celular;
+    private TipoPessoa tipoPessoa;
 }

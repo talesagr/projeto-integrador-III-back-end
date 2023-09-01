@@ -16,4 +16,5 @@ public class Livro {
     private Genero genero;
     private int paginas;
     private Editora editora;
+    private boolean disponivel;
 }
