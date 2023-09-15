@@ -1,6 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PeopleDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public User save(User newUser) throws Exception {
-
+/*
         Optional<User> user = this.userRepository.findByEmail(newUser.getEmail());
 
         if (user.isPresent()) {
@@ -26,7 +27,8 @@ public class UserService {
         User newSavedUser = this.userRepository.save(newUser);
 
         return newSavedUser;
-
+*/
+        return null;
     }
 
     private String encodePassword(String password) {
@@ -37,4 +39,15 @@ public class UserService {
         return encodedPassword;
     }
 
+    public Optional<User> findUserByID(Integer userID){
+        return this.userRepository.findById(userID);
+    }
+
+    public void putDetail(User user, PeopleDTO peopleDTO) {
+        user.setCPF(peopleDTO.getCPF());
+        user.setCelular(peopleDTO.getCelular());
+        user.setEndereco(peopleDTO.getEndereco());
+        user.setIdade(peopleDTO.getIdade());
+        this.userRepository.save(user);
+    }
 }

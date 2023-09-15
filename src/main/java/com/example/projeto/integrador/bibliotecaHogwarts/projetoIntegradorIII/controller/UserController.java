@@ -1,6 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.controller;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PeopleDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.UserDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.UserService;
@@ -8,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Slf4j
 @CrossOrigin
@@ -31,5 +34,17 @@ public class UserController {
         }
 
     }
+
+    @PutMapping("/user/{userID}/detail/")
+    public ResponseEntity<ResponseDTO> put(@PathVariable Integer userID,@RequestBody PeopleDTO peopleDTO){
+        Optional<User> user = this.userService.findUserByID(userID);
+        if(user.isPresent()){
+            this.userService.putDetail(user.get(),peopleDTO);
+            return new ResponseEntity<>(new ResponseDTO(userID.toString(), "Success!"),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResponseDTO(null,"User not found!"),HttpStatus.NOT_FOUND);
+    }
+
+
 }
 
