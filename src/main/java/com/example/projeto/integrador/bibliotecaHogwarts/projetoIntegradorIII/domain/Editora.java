@@ -1,14 +1,14 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain;
 
-public enum Editora {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    PANINI,
-    DARKSIDE,
-    COMPANHIA_DAS_LETRAS,
-    ALEPH,
-    SUMA,
-    INTRINSECA,
-    RECORD,
-    GLOBO,
-    ROCCO
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Editora {
+    private String editora;
 }

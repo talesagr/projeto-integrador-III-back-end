@@ -1,13 +1,14 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain;
 
-public enum Genero {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-    TERROR,
-    COMEDIA,
-    FICCAO,
-    HISTORIA,
-    BIBLIOGRAFIA,
-    MANGA,
-    FINANCAS,
-    AUTO_AJUDA
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Genero {
+    private String genero;
 }
