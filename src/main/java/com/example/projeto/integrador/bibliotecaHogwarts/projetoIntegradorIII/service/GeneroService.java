@@ -1,8 +1,14 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.GeneroDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Genero;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.GeneroRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class GeneroService {
@@ -20,5 +26,33 @@ public class GeneroService {
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
+    }
+
+    public void updateGeneroDesc(Integer generoID, GeneroDTO generoDTO) throws Exception{
+            Optional<Genero> genero = generoRepository.findById(generoID);
+            if (genero.isPresent()){
+                Genero updatedGenero = genero.get();
+                updatedGenero.setDescricao(generoDTO.getGenero());
+                generoRepository.save(updatedGenero);
+            } else {
+                throw new Exception("GeneroOID nao existe");
+            }
+    }
+
+    public void deleteGeneroByID(Integer id) throws Exception {
+        Optional<Genero> genero = generoRepository.findById(id);
+        if (genero.isPresent()){
+            Genero deletedGenero = genero.get();
+            generoRepository.deleteById(deletedGenero.getGenerooid());
+            generoRepository.save(deletedGenero);
+        } else {
+            throw new Exception("GeneroOID nao existe");
+        }
+    }
+
+    public List<Genero> getGeneros() {
+        Iterable<Genero> iterable = generoRepository.findAll();
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
     }
 }
