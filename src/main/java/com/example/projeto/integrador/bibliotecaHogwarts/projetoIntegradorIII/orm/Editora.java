@@ -1,21 +1,22 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "autor")
-@Entity
-@Getter
+@Table(name = "editora")
 @Setter
-public class Autor {
+@Getter
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+public class Editora {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer autorid;
+    private Integer editoraoid;
 
-    private String name;
-    //todo na tabela existem mais coisas
-
-
+    private String descricao;
 }

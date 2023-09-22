@@ -11,12 +11,12 @@ import java.util.Map;
 @Setter
 @Getter
 public class ResponseDTO {
-    private String userID;
+    private String ID;
     private String resultMessage;
     private Map<String, Object> body;
 
-    public ResponseDTO(String userID, String resultMessage) {
-        this.userID = userID;
+    public ResponseDTO(String savedID, String resultMessage) {
+        this.ID = savedID;
         this.resultMessage = resultMessage;
         this.body = Map.of();
     }
