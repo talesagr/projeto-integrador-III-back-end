@@ -2,12 +2,15 @@ package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.c
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.GeneroDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Editora;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Genero;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.GeneroService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @CrossOrigin
@@ -32,6 +35,40 @@ public class GeneroController {
             return new ResponseEntity<>(
                     new ResponseDTO(null, e.getMessage()),
                     HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/genero")
+    public ResponseEntity<List<Genero>> getGeneros(){
+        List<Genero> generos = generoService.getGeneros();
+        return new ResponseEntity<>(generos, HttpStatus.OK);
+    }
+
+    @PutMapping("/genero")
+    public ResponseEntity<ResponseDTO> put(@RequestBody GeneroDTO generoDTO){
+        try {
+            generoService.updateGeneroDesc(generoDTO.getId(),generoDTO);
+            return new ResponseEntity<>(
+                    new ResponseDTO(generoDTO.getGenero(), "Genero atualizado com sucesso!"), HttpStatus.OK
+            );
+        } catch (Exception e) {
+            return new ResponseEntity<>(
+                    new ResponseDTO(generoDTO.getGenero(), e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @DeleteMapping("/genero")
+    public ResponseEntity<ResponseDTO> delete(@RequestBody GeneroDTO generoDTO){
+        try {
+            generoService.deleteGeneroByID(generoDTO.getId());
+            return new ResponseEntity<>(
+                    new ResponseDTO(generoDTO.getGenero(), "Genero deletado com sucesso!"),HttpStatus.OK
+            );
+        } catch (Exception e){
+            return new ResponseEntity<>(
+                    new ResponseDTO(generoDTO.getGenero(), "Erro ao deletar genero: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR
+            );
         }
     }
 
