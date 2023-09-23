@@ -14,7 +14,6 @@ public class GeneroDTO {
 
     private Integer id;
 
-    @NotEmpty
     private String genero;
 
     public Genero toORM() {

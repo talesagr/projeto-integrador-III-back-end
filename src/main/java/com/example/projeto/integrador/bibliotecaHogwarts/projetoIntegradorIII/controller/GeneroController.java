@@ -2,7 +2,6 @@ package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.c
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.GeneroDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Editora;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Genero;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.GeneroService;
 import lombok.extern.slf4j.Slf4j;

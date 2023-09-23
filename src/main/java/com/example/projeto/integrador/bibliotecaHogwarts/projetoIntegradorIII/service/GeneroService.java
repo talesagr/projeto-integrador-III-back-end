@@ -44,7 +44,6 @@ public class GeneroService {
         if (genero.isPresent()){
             Genero deletedGenero = genero.get();
             generoRepository.deleteById(deletedGenero.getGenerooid());
-            generoRepository.save(deletedGenero);
         } else {
             throw new Exception("GeneroOID nao existe");
         }
