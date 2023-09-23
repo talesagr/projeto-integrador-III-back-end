@@ -1,9 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.EditoraDTO;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.GeneroDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Editora;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Genero;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.EditoraRepository;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +44,6 @@ public class EditoraService {
         Optional<Editora> editora = editoraRepository.findById(id);
         if (editora.isPresent()){
             editoraRepository.deleteById(id);
-            editoraRepository.save(editora.get());
         } else {
             throw new Exception("Editora nao encontrada");
         }

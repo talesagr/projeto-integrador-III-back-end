@@ -3,10 +3,7 @@ package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.s
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PeopleDTO;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.security.SecureRandom;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -30,13 +27,13 @@ public class UserService {
         return null;
     }
 
-    private String encodePassword(String password) {
-        int strength = 10; // work factor of bcrypt
-        BCryptPasswordEncoder bCryptPasswordEncoder =
-                new BCryptPasswordEncoder(strength, new SecureRandom());
-        String encodedPassword = "{bcrypt}" + bCryptPasswordEncoder.encode(password);
-        return encodedPassword;
-    }
+  //  private String encodePassword(String password) {
+   //     int strength = 10; // work factor of bcrypt
+    //    BCryptPasswordEncoder bCryptPasswordEncoder =
+    //            new BCryptPasswordEncoder(strength, new SecureRandom());
+     //   String encodedPassword = "{bcrypt}" + bCryptPasswordEncoder.encode(password);
+     //   return encodedPassword;
+
 
 //    public Optional<User> findUserByID(Integer userID){
 //        return this.userRepository.findById(userID);
