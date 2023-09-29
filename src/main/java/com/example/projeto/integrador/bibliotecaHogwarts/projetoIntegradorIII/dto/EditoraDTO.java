@@ -15,10 +15,9 @@ import javax.validation.constraints.NotEmpty;
 public class EditoraDTO {
     private Integer id;
 
-    @NotEmpty
-    private String editora;
+    private String descricao;
 
     public Editora toORM() {
-        return new Editora(this.id,this.editora);
+        return new Editora(this.id,this.descricao);
     }
 }

@@ -33,7 +33,7 @@ public class EditoraService {
         Optional<Editora> editora = editoraRepository.findById(id);
         if (editora.isPresent()){
             Editora updatedEditora = editora.get();
-            updatedEditora.setDescricao(editoraDTO.getEditora());
+            updatedEditora.setDescricao(editoraDTO.getDescricao());
             editoraRepository.save(updatedEditora);
         } else {
             throw new Exception("Editora nao encontrada");

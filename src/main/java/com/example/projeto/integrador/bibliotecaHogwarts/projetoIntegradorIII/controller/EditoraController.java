@@ -27,9 +27,9 @@ public class EditoraController {
     @PostMapping("/editora")
     public ResponseEntity<ResponseDTO> post(@RequestBody EditoraDTO editora){
         try {
-            editoraService.addEditora(editora.getEditora());
+            editoraService.addEditora(editora.getDescricao());
             return new ResponseEntity<>(
-                    new ResponseDTO(editora.getEditora(),"Editora salva com sucesso!"),
+                    new ResponseDTO(editora.getDescricao(),"Editora salva com sucesso!"),
                     HttpStatus.OK
             );
         }catch (Exception e){
@@ -45,17 +45,22 @@ public class EditoraController {
         return new ResponseEntity<>(editoras, HttpStatus.OK);
     }
 
+    @GetMapping("/editora/ultimoID")
+    public ResponseEntity<Integer> getLastID(){
+        int lastID = editoraService.getEditoras().size()+1;
+        return new ResponseEntity<>(lastID, HttpStatus.OK);
+    }
 
     @PutMapping("/editora")
     public ResponseEntity<ResponseDTO> put(@RequestBody EditoraDTO editoraDTO){
         try {
             editoraService.updateEditoraDesc(editoraDTO.getId(),editoraDTO);
             return new ResponseEntity<>(
-                    new ResponseDTO(editoraDTO.getEditora(), "Editora atualizada com sucesso!"), HttpStatus.OK
+                    new ResponseDTO(editoraDTO.getDescricao(), "Editora atualizada com sucesso!"), HttpStatus.OK
             );
         } catch (Exception e) {
             return new ResponseEntity<>(
-                    new ResponseDTO(editoraDTO.getEditora(), e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR
+                    new ResponseDTO(editoraDTO.getDescricao(), e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
     }
@@ -65,11 +70,11 @@ public class EditoraController {
         try {
             editoraService.deleteEditoraByID(editoraDTO.getId());
             return new ResponseEntity<>(
-                    new ResponseDTO(editoraDTO.getEditora(), "Editora deletada com sucesso!"),HttpStatus.OK
+                    new ResponseDTO(editoraDTO.getDescricao(), "Editora deletada com sucesso!"),HttpStatus.OK
             );
         } catch (Exception e){
             return new ResponseEntity<>(
-                    new ResponseDTO(editoraDTO.getEditora(), "Erro ao deletar editora: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR
+                    new ResponseDTO(editoraDTO.getDescricao(), "Erro ao deletar editora: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR
             );
         }
     }
