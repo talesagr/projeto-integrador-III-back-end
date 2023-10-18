@@ -1,7 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PeopleDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PessoaDTO;
 import org.springframework.stereotype.Service;
 
 
@@ -39,11 +39,11 @@ public class UserService {
 //        return this.userRepository.findById(userID);
 //    }
 
-    public void putDetail(User user, PeopleDTO peopleDTO) {
-        user.setCPF(peopleDTO.getCPF());
-        user.setCelular(peopleDTO.getCelular());
-        user.setEndereco(peopleDTO.getEndereco());
-        user.setIdade(peopleDTO.getIdade());
+    public void putDetail(User user, PessoaDTO pessoaDTO) {
+        user.setCPF(pessoaDTO.getCPF());
+        user.setCelular(pessoaDTO.getCelular());
+        user.setEndereco(pessoaDTO.getEndereco());
+        user.setIdade(pessoaDTO.getIdade());
         //this.userRepository.save(user);
     }
 }

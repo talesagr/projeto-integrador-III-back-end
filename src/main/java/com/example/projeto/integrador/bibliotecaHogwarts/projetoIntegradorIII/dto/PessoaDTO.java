@@ -1,8 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto;
 
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.People;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.UserType;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Pessoa;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,13 +11,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PeopleDTO {
-    private int idade;
-    private String CPF;
+public class PessoaDTO {
+    private int id;
+    private String nome;
+    private Integer idade;
+    private String cpf;
     private String endereco;
     private String celular;
     private UserType userType;
-    public People toDomain() {
-        return new People(idade,CPF,endereco,celular,userType);
+
+    public Pessoa toORM() {
+        return new Pessoa(nome,idade,cpf,endereco,celular,userType);
     }
 }
