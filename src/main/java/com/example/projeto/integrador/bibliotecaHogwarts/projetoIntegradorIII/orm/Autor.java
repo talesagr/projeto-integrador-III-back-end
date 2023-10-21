@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Table(name = "autor")
 @Entity
 @Getter
@@ -16,12 +18,15 @@ public class Autor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "autoroid")
     private Integer autoroid;
 
     private String name;
-    private Integer autorlivrosoid;
+    @OneToMany(mappedBy = "autoroid", cascade = CascadeType.ALL)
+    private List<AutorLivros> autorlivros;
     @OneToOne
-    private Pessoa pessoaoid;
+    @JoinColumn(name = "pessoaoid")
+    private Pessoa pessoa;
 
 
 }

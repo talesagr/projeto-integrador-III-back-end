@@ -16,8 +16,8 @@ public class AutorService {
             Autor autorORM = new Autor();
             autorORM.setName(autor.getName());
             autorORM.setAutoroid(autor.getAutoroid());
-            autorORM.setAutorlivrosoid(autor.getAutorlivrosoid());
-            autorORM.setPessoaoid(autor.getPessoaoid());
+            autorORM.setAutorlivros(autor.getAutorlivros());
+            autorORM.setPessoa(autor.getPessoa());
             autorRepository.save(autorORM);
     }
 
@@ -29,14 +29,14 @@ public class AutorService {
             if(!autor.getName().equals(toORM.getName()) && toORM.getName() != ""){
                 autor.setName(toORM.getName());
             }
-            if(!autor.getPessoaoid().equals(toORM.getPessoaoid()) && toORM.getPessoaoid() != null){
-                autor.setPessoaoid(toORM.getPessoaoid());
+            if(!autor.getPessoa().equals(toORM.getPessoa()) && toORM.getPessoa() != null){
+                autor.setPessoa(toORM.getPessoa());
             }
             if(!autor.getAutoroid().equals(toORM.getAutoroid()) && toORM.getAutoroid() != null){
                 autor.setAutoroid(toORM.getAutoroid());
             }
-            if(!autor.getAutorlivrosoid().equals(toORM.getAutorlivrosoid()) && toORM.getAutorlivrosoid() != null){
-                autor.setAutorlivrosoid(toORM.getAutorlivrosoid());
+            if(!autor.getAutorlivros().equals(toORM.getAutorlivros()) && toORM.getAutorlivros() != null){
+                autor.setAutorlivros(toORM.getAutorlivros());
             }
             autorRepository.save(toORM);
         } else {
