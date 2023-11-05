@@ -22,8 +22,9 @@ public class Autor {
     private Integer autoroid;
 
     private String name;
-    @OneToMany(mappedBy = "autoroid", cascade = CascadeType.ALL)
-    private List<AutorLivros> autorlivros;
+
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+    private List<Livro> livros;
     @OneToOne
     @JoinColumn(name = "pessoaoid")
     private Pessoa pessoa;

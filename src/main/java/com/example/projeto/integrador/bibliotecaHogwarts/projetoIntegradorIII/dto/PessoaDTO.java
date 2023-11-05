@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PessoaDTO {
-    private int id;
+    private Integer id;
     private String nome;
     private Integer idade;
     private String cpf;
@@ -21,6 +21,6 @@ public class PessoaDTO {
     private UserType userType;
 
     public Pessoa toORM() {
-        return new Pessoa(nome,idade,cpf,endereco,celular,userType);
+        return new Pessoa(id,nome,idade,cpf,endereco,celular,userType);
     }
 }

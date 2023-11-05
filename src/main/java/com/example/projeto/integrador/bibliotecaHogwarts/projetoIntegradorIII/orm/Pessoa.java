@@ -11,8 +11,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Pessoa {
 
     @Id
@@ -24,16 +24,7 @@ public class Pessoa {
     private String cpf;
     private String endereco;
     private String celular;
-
     private UserType userType;
 
-    public Pessoa(String nome, Integer idade, String cpf, String endereco, String celular, UserType userType){
-        this.nome = nome;
-        this.idade = idade;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.celular = celular;
-        this.userType = userType;
-    }
 
 }

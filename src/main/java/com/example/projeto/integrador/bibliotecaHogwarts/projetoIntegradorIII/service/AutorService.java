@@ -1,22 +1,26 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.AutorDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Autor;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.AutorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
 public class AutorService {
     private final AutorRepository autorRepository;
 
-    public void addAutor(Autor autor) {
+    public void addAutor(AutorDTO autorDTO) {
             Autor autorORM = new Autor();
             autorORM.setName(autor.getName());
             autorORM.setAutoroid(autor.getAutoroid());
-            autorORM.setAutorlivros(autor.getAutorlivros());
+            autorORM.setLivros(autor.getLivros());
             autorORM.setPessoa(autor.getPessoa());
             autorRepository.save(autorORM);
     }
@@ -35,13 +39,28 @@ public class AutorService {
             if(!autor.getAutoroid().equals(toORM.getAutoroid()) && toORM.getAutoroid() != null){
                 autor.setAutoroid(toORM.getAutoroid());
             }
-            if(!autor.getAutorlivros().equals(toORM.getAutorlivros()) && toORM.getAutorlivros() != null){
-                autor.setAutorlivros(toORM.getAutorlivros());
+            if(!autor.getLivros().equals(toORM.getLivros()) && toORM.getLivros() != null){
+                autor.setLivros(toORM.getLivros());
             }
             autorRepository.save(toORM);
         } else {
             throw new Exception("Autor nao encontrado!");
         }
 
+    }
+
+    public List<Autor> getAutores() {
+        Iterable<Autor> iterable = autorRepository.findAll();
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    public void deleteAutorByID(Integer id) throws Exception {
+        Optional<Autor> autor = autorRepository.findById(id);
+        if(autor.isPresent()){
+            autorRepository.deleteById(id);
+        } else {
+            throw new Exception("Autor nao encontrado!");
+        }
     }
 }

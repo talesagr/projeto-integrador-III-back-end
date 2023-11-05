@@ -1,6 +1,6 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.controller;
 
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.UserService;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.UsuarioService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api")
 public class UserController {
 
-    private UserService userService;
+    private UsuarioService userService;
 
 //    @PostMapping("/user")
 //    public ResponseEntity<ResponseDTO> post(@RequestBody UserDTO userDTO){

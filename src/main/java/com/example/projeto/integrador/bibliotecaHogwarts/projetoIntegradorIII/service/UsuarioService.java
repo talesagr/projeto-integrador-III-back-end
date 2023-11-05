@@ -1,18 +1,18 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.User;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.PessoaDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Usuario;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserService {
+public class UsuarioService {
 
- //   private UserRepository userRepository;
+    private UserRepository userRepository;
 //    public UserService(UserRepository userRepository){
 //        this.userRepository = userRepository;
 //    }
-    public User save(User newUser) throws Exception {
+    public Usuario save(Usuario newUser) throws Exception {
 /*
         Optional<User> user = this.userRepository.findByEmail(newUser.getEmail());
 
@@ -39,11 +39,4 @@ public class UserService {
 //        return this.userRepository.findById(userID);
 //    }
 
-    public void putDetail(User user, PessoaDTO pessoaDTO) {
-        user.setCPF(pessoaDTO.getCPF());
-        user.setCelular(pessoaDTO.getCelular());
-        user.setEndereco(pessoaDTO.getEndereco());
-        user.setIdade(pessoaDTO.getIdade());
-        //this.userRepository.save(user);
-    }
 }
