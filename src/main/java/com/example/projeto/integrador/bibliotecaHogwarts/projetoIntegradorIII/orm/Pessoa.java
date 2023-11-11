@@ -14,11 +14,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pessoa {
-
+    public Pessoa(String nome, Integer idade, String cpf, String endereco, String celular, UserType userType) {
+        this.nome = nome;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.endereco = endereco;
+        this.celular = celular;
+        this.userType = userType;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer pessoaoid;
-
     private String nome;
     private Integer idade;
     private String cpf;

@@ -16,7 +16,7 @@ import java.util.stream.StreamSupport;
 public class PessoaService {
     private final PessoaRepository pessoaRepository;
 
-    public void addPessoa(Pessoa pessoa) throws Exception{
+    public Pessoa addPessoa(Pessoa pessoa) throws Exception{
         try{
             Pessoa pessoaORM = new Pessoa();
             pessoaORM.setNome(pessoa.getNome());
@@ -26,6 +26,7 @@ public class PessoaService {
             pessoaORM.setIdade(pessoa.getIdade());
             pessoaORM.setUserType(pessoa.getUserType());
             pessoaRepository.save(pessoaORM);
+            return pessoaORM;
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
