@@ -2,7 +2,11 @@ package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.s
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.AutorDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Autor;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Livro;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Pessoa;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.AutorRepository;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.PessoaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,34 +19,44 @@ import java.util.stream.StreamSupport;
 @AllArgsConstructor
 public class AutorService {
     private final AutorRepository autorRepository;
+    private final PessoaRepository pessoaRepository;
+    private final LivroService livroService;
 
     public void addAutor(AutorDTO autorDTO) {
-            Autor autorORM = new Autor();
-            autorORM.setName(autor.getName());
-            autorORM.setAutoroid(autor.getAutoroid());
-            autorORM.setLivros(autor.getLivros());
-            autorORM.setPessoa(autor.getPessoa());
-            autorRepository.save(autorORM);
+        Autor autorORM = new Autor();
+        autorORM.setName(autorDTO.getName());
+        autorORM.setAutoroid(autorDTO.getAutorID());
+        List<Livro> livrosORM = livroService.addLivrosByAutor(autorDTO);
+
+        autorORM.setLivros(livrosORM);
+        Pessoa pessoa = pessoaRepository.findById(autorDTO.getPessoaoid())
+                        .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
+        autorORM.setPessoa(pessoa);
+        autorRepository.save(autorORM);
     }
 
-    public void putAutor(Autor toORM) throws Exception{
-        Optional<Autor> autorOptional = autorRepository.findById(toORM.getAutoroid());
+
+    public void putAutor(AutorDTO autorDTO) throws Exception{
+        Optional<Autor> autorOptional = autorRepository.findById(autorDTO.getAutorID());
 
         if(autorOptional.isPresent()){
             Autor autor = autorOptional.get();
-            if(!autor.getName().equals(toORM.getName()) && toORM.getName() != ""){
-                autor.setName(toORM.getName());
+            if(!autor.getName().equals(autorDTO.getName()) && autorDTO.getName() != ""){
+                autor.setName(autorDTO.getName());
             }
-            if(!autor.getPessoa().equals(toORM.getPessoa()) && toORM.getPessoa() != null){
-                autor.setPessoa(toORM.getPessoa());
+            if(!autor.getPessoa().getPessoaoid().equals(autorDTO.getPessoaoid()) && autorDTO.getPessoaoid() != null){
+                Pessoa pessoa = pessoaRepository.findById(autorDTO.getPessoaoid())
+                                .orElseThrow(() -> new EntityNotFoundException("Pessoa não encontrada"));
+                autor.setPessoa(pessoa);
             }
-            if(!autor.getAutoroid().equals(toORM.getAutoroid()) && toORM.getAutoroid() != null){
-                autor.setAutoroid(toORM.getAutoroid());
+            if(!autor.getAutoroid().equals(autorDTO.getAutorID()) && autorDTO.getAutorID() != null){
+                autor.setAutoroid(autorDTO.getAutorID());
             }
-            if(!autor.getLivros().equals(toORM.getLivros()) && toORM.getLivros() != null){
-                autor.setLivros(toORM.getLivros());
+            if(!autor.getLivros().equals(autorDTO.getLivros()) && autorDTO.getLivros() != null){
+                List<Livro> livrosORM = livroService.addLivrosByAutor(autorDTO);
+                autor.setLivros(livrosORM);
             }
-            autorRepository.save(toORM);
+            autorRepository.save(autor);
         } else {
             throw new Exception("Autor nao encontrado!");
         }

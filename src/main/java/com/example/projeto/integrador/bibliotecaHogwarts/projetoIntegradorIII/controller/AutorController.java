@@ -41,7 +41,7 @@ public class AutorController {
     @PutMapping("/autor")
     public ResponseEntity<ResponseDTO> put(@RequestBody AutorDTO autorDTO){
         try{
-            autorService.putAutor(autorDTO.toORM());
+            autorService.putAutor(autorDTO);
             return new ResponseEntity<>(
                     new ResponseDTO(autorDTO.getName(),"Autor atualizado com sucesso!"),
                     HttpStatus.OK
