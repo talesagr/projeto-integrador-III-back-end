@@ -16,5 +16,6 @@ public class LivroDTO {
     private int paginas;
     private Integer editoraoid;
     private Integer generooid;
+    private boolean disponivel;
 
 }

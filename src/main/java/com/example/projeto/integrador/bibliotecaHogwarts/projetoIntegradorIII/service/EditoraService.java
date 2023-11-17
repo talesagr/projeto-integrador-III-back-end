@@ -54,4 +54,10 @@ public class EditoraService {
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    public List<Editora> getEditorasByDesc(String desc) {
+        Iterable<Editora> iterable = editoraRepository.findByDesc(desc);
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+    }
 }

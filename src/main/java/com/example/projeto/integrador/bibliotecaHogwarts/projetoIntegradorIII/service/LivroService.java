@@ -68,10 +68,10 @@ public class LivroService {
         livroRepository.save(livroExistente);
     }
 
-    public List<Livro> getLivros() {
+    public List<LivroDTO> getLivros() {
         Iterable<Livro> livroIterable = livroRepository.findAll();
-        List<Livro> livros = new ArrayList<>();
-        livroIterable.forEach(livros::add);
+        List<LivroDTO> livros = new ArrayList<>();
+        livroIterable.forEach(livro -> livros.add(livro.toLivroDTO()));
         return livros;
     }
 
@@ -111,5 +111,35 @@ public class LivroService {
             }
         }
         return livrosORM;
+    }
+
+    public List<LivroDTO> getAvailableLivros() {
+        Iterable<Livro> livroIterable = livroRepository.findAvailables();
+        List<LivroDTO> livros = new ArrayList<>();
+        livroIterable.forEach(livro -> livros.add(livro.toLivroDTO()));
+        return livros;
+    }
+
+    public List<LivroDTO> getAllNOTAvailable() {
+        Iterable<Livro> livroIterable = livroRepository.findNOTAvailables();
+        List<LivroDTO> livros = new ArrayList<>();
+        livroIterable.forEach(livro -> livros.add(livro.toLivroDTO()));
+        return livros;
+    }
+
+    public void retirar(int livrooid){
+        Optional<Livro> livro = livroRepository.findById(livrooid);
+        if(livro.isPresent()){
+            livro.get().setDisponivel(false);
+            livroRepository.save(livro.get());
+        }
+    }
+
+    public void devolver(int livrooid){
+        Optional<Livro> livro = livroRepository.findById(livrooid);
+        if(livro.isPresent()){
+            livro.get().setDisponivel(true);
+            livroRepository.save(livro.get());
+        }
     }
 }

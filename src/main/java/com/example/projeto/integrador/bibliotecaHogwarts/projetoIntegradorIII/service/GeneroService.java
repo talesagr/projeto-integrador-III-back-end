@@ -32,7 +32,7 @@ public class GeneroService {
             Optional<Genero> genero = generoRepository.findById(generoID);
             if (genero.isPresent()){
                 Genero updatedGenero = genero.get();
-                updatedGenero.setDescricao(generoDTO.getGenero());
+                updatedGenero.setDescricao(generoDTO.getDescricao());
                 generoRepository.save(updatedGenero);
             } else {
                 throw new Exception("GeneroOID nao existe");
@@ -51,6 +51,12 @@ public class GeneroService {
 
     public List<Genero> getGeneros() {
         Iterable<Genero> iterable = generoRepository.findAll();
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+    }
+
+    public List<Genero> getgenerosByDesc(String desc) {
+        Iterable<Genero> iterable = generoRepository.findByDesc(desc);
         return StreamSupport.stream(iterable.spliterator(), false)
                 .collect(Collectors.toList());
     }

@@ -37,6 +37,38 @@ public class LivroController {
         }
     }
 
+    @PostMapping("/livro/retirar")
+    public ResponseEntity<ResponseDTO> retirar(@RequestBody int livrooid){
+        try{
+            livroService.retirar(livrooid);
+            return new ResponseEntity<>(
+                    new ResponseDTO(null,"Livro retirado com sucesso!"),
+                    HttpStatus.OK
+            );
+        } catch (Exception e){
+            return new ResponseEntity<>(
+                    new ResponseDTO(null, e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    @PostMapping("/livro/devolver")
+    public ResponseEntity<ResponseDTO> devolver(@RequestBody int livrooid){
+        try{
+            livroService.devolver(livrooid);
+            return new ResponseEntity<>(
+                    new ResponseDTO(null,"Livro devolvido com sucesso!"),
+                    HttpStatus.OK
+            );
+        } catch (Exception e){
+            return new ResponseEntity<>(
+                    new ResponseDTO(null, e.getMessage()),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     @PutMapping("/livro")
     public ResponseEntity<ResponseDTO> put(@RequestBody LivroDTO livroDTO){
         try{
@@ -54,8 +86,20 @@ public class LivroController {
     }
 
     @GetMapping("/livro")
-    public ResponseEntity<List<Livro>> getAll(){
-        List<Livro> livros = livroService.getLivros();
+    public ResponseEntity<List<LivroDTO>> getAll(){
+        List<LivroDTO> livros = livroService.getLivros();
+        return new ResponseEntity<>(livros, HttpStatus.OK);
+    }
+
+    @GetMapping("/livro/disponiveis")
+    public ResponseEntity<List<LivroDTO>> getAllAvailable(){
+        List<LivroDTO> livros = livroService.getAvailableLivros();
+        return new ResponseEntity<>(livros, HttpStatus.OK);
+    }
+
+    @GetMapping("/livro/ausentes")
+    public ResponseEntity<List<LivroDTO>> getAllNOTAvailable(){
+        List<LivroDTO> livros = livroService.getAllNOTAvailable();
         return new ResponseEntity<>(livros, HttpStatus.OK);
     }
 

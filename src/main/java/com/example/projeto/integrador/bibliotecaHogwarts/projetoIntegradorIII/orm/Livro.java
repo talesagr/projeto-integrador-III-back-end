@@ -31,8 +31,10 @@ public class Livro {
     @OneToOne
     @JoinColumn(name = "generooid")
     private Genero genero;
+    @Column(name = "disponivel", columnDefinition = "boolean default true")
+    private boolean disponivel;
 
     public LivroDTO toLivroDTO() {
-        return new LivroDTO(livrooid, titulo, autor.getAutoroid(), paginas, editora.getEditoraoid(), genero.getGenerooid());
+        return new LivroDTO(livrooid, titulo, autor.getAutoroid(), paginas, editora.getEditoraoid(), genero.getGenerooid(),disponivel);
     }
 }

@@ -12,10 +12,10 @@ public class GeneroDTO {
 
     private Integer id;
 
-    private String genero;
+    private String descricao;
 
     public Genero toORM() {
-        return new Genero(this.id,this.genero);
+        return new Genero(this.id,this.descricao);
     }
 
 }

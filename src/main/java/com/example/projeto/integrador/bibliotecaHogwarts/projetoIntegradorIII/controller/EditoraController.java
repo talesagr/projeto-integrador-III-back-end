@@ -42,6 +42,12 @@ public class EditoraController {
         return new ResponseEntity<>(editoras, HttpStatus.OK);
     }
 
+    @GetMapping("/editora/{desc}")
+    public ResponseEntity<List<Editora>> getEditoras(@PathVariable String desc){
+        List<Editora> editoras = editoraService.getEditorasByDesc(desc);
+        return new ResponseEntity<>(editoras, HttpStatus.OK);
+    }
+
     @GetMapping("/editora/ultimoID")
     public ResponseEntity<Integer> getLastID(){
         int lastID = editoraService.getEditoras().size()+1;
