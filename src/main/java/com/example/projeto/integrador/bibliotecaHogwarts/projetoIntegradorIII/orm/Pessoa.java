@@ -9,10 +9,10 @@ import lombok.Setter;
 
 @Table(name = "pessoa")
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Pessoa {
     public Pessoa(String nome, Integer idade, String cpf, String endereco, String celular, UserType userType) {
         this.nome = nome;
@@ -31,6 +31,4 @@ public class Pessoa {
     private String endereco;
     private String celular;
     private UserType userType;
-
-
 }

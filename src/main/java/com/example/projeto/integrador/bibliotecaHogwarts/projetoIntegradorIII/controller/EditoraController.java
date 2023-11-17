@@ -1,18 +1,15 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.controller;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.EditoraDTO;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.GeneroDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Editora;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.EditoraService;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.GeneroService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @CrossOrigin

@@ -1,11 +1,14 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service;
 
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.domain.UserType;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.UserTypeDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Pessoa;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Usuario;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -41,5 +44,18 @@ public class UsuarioService {
         Usuario newSavedUser = userRepository.save(newUser);
 
         return newSavedUser;
+    }
+
+
+    public List<Usuario> getAllUsersByType(UserTypeDTO userTypeDTO) {
+        return this.userRepository.findAllByUserType(userTypeDTO.getUserType());
+    }
+
+    public List<Usuario> getAllClientes() {
+        return this.userRepository.findAllByUserType(UserType.CLIENTE);
+    }
+
+    public List<Usuario> getAllAtendentes() {
+        return this.userRepository.findAllByUserType(UserType.ATENDENTE);
     }
 }

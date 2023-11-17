@@ -1,17 +1,14 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Table(name = "usuario")
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +17,10 @@ public class Usuario {
 
     @OneToOne
     @JoinColumn(name = "pessoaoid")
+    @ToString.Exclude
     private Pessoa pessoa;
 
     private String email;
 
     private String senha;
-
 }

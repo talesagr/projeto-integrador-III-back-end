@@ -1,7 +1,6 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.controller;
 
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.UserDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.*;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Usuario;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -9,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -24,8 +25,9 @@ public class UserController {
     public ResponseEntity<ResponseDTO> post(@RequestBody UserDTO userDTO){
         try {
             Usuario userResult = this.userService.save(userDTO.toORM());
+            UsuarioResponseDTO userResponseDTO = convertToDTO(userResult);
             return new ResponseEntity<>(
-                    new ResponseDTO(userResult.getPessoa().getNome(), "usuário adicionado"),
+                    new ResponseDTO(userResponseDTO.getPessoa().getNome(), "usuário adicionado"),
                     HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(
@@ -34,16 +36,37 @@ public class UserController {
         }
     }
 
-//    @PutMapping("/user/{userID}/detail/")
-//    public ResponseEntity<ResponseDTO> put(@PathVariable Integer userID,@RequestBody PeopleDTO peopleDTO){
-//        Optional<User> user = this.userService.findUserByID(userID);
-//        if(user.isPresent()){
-//            this.userService.putDetail(user.get(),peopleDTO);
-//            return new ResponseEntity<>(new ResponseDTO(userID.toString(), "Success!"),HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(new ResponseDTO(null,"User not found!"),HttpStatus.NOT_FOUND);
-//    }
+    @GetMapping("/user/cliente")
+    public ResponseEntity<List<Usuario>> getAllClienteUsers(){
+        try {
+            List<Usuario> usuarioList = this.userService.getAllClientes();
+            return new ResponseEntity<>(usuarioList, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/user/atendente")
+    public ResponseEntity<List<Usuario>> getAllAtendenteUsers(){
+        try {
+            List<Usuario> usuarioList = this.userService.getAllAtendentes();
+            return new ResponseEntity<>(usuarioList, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
+    private UsuarioResponseDTO convertToDTO(Usuario usuario) {
+        PessoaResponseDTO pessoaDTO = new PessoaResponseDTO();
+        pessoaDTO.setPessoaoid(usuario.getPessoa().getPessoaoid());
+
+        UsuarioResponseDTO usuarioDTO = new UsuarioResponseDTO();
+        usuarioDTO.setUsuariooid(usuario.getUsuariooid());
+        usuarioDTO.setPessoa(pessoaDTO);
+        usuarioDTO.setEmail(usuario.getEmail());
+        usuarioDTO.setSenha(usuario.getSenha());
+
+        return usuarioDTO;
+    }
 }
 

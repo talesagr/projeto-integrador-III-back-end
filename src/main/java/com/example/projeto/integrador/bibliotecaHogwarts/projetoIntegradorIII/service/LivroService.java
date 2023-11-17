@@ -85,26 +85,30 @@ public class LivroService {
 
 
     public List<Livro> addLivrosByAutor(AutorDTO autorDTO) {
-        List<LivroDTO> livrosDTO = autorDTO.getLivros();
         List<Livro> livrosORM = new ArrayList<>();
 
-        for (LivroDTO livroDTO : livrosDTO) {
-            Livro livro = livroRepository.findById(livroDTO.getLivrooid()).orElse(null);
+        if (autorDTO.getLivros() != null) {
+            for (LivroDTO livroDTO : autorDTO.getLivros()) {
+                Livro livro = livroRepository.findById(livroDTO.getLivrooid()).orElse(null);
 
-            if (livro == null) {
-                livro = new Livro();
-                livro.setTitulo(livroDTO.getTitulo());
-                livro.setPaginas(livroDTO.getPaginas());
-                Editora editora = editoraRepository.findById(livroDTO.getEditoraoid())
-                        .orElseThrow(() -> new EntityNotFoundException("Editora não encontrada"));
-                livro.setEditora(editora);
-                Genero genero = generoRepository.findById(livroDTO.getGenerooid())
-                        .orElseThrow(() -> new EntityNotFoundException("Gênero não encontrado"));
-                livro.setGenero(genero);
-                livroRepository.save(livro);
+                if (livro == null) {
+                    livro = new Livro();
+                    livro.setTitulo(livroDTO.getTitulo());
+                    livro.setPaginas(livroDTO.getPaginas());
+
+                    Editora editora = editoraRepository.findById(livroDTO.getEditoraoid())
+                            .orElseThrow(() -> new EntityNotFoundException("Editora não encontrada"));
+                    livro.setEditora(editora);
+
+                    Genero genero = generoRepository.findById(livroDTO.getGenerooid())
+                            .orElseThrow(() -> new EntityNotFoundException("Gênero não encontrado"));
+                    livro.setGenero(genero);
+
+                    livroRepository.save(livro);
+                }
+
+                livrosORM.add(livro);
             }
-
-            livrosORM.add(livro);
         }
         return livrosORM;
     }

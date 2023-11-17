@@ -1,5 +1,7 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm;
 
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.LivroDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,16 +10,17 @@ import lombok.Setter;
 
 @Table(name = "livro")
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Livro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "livrooid")
     private Integer livrooid;
     private String titulo;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "autoroid")
     private Autor autor;
@@ -28,4 +31,8 @@ public class Livro {
     @OneToOne
     @JoinColumn(name = "generooid")
     private Genero genero;
+
+    public LivroDTO toLivroDTO() {
+        return new LivroDTO(livrooid, titulo, autor.getAutoroid(), paginas, editora.getEditoraoid(), genero.getGenerooid());
+    }
 }

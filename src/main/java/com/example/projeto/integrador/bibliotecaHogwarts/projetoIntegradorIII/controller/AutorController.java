@@ -1,8 +1,9 @@
 package com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.controller;
 
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.AutorDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.AutorRegisterDTO;
+import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.AutorResponseDTO;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.dto.ResponseDTO;
-import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.orm.Autor;
 import com.example.projeto.integrador.bibliotecaHogwarts.projetoIntegradorIII.service.AutorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,11 @@ public class AutorController {
     }
 
     @PostMapping("/autor")
-    public ResponseEntity<ResponseDTO> post(@RequestBody AutorDTO autorDTO){
+    public ResponseEntity<ResponseDTO> post(@RequestBody AutorRegisterDTO autorRegisterDTO){
         try{
-            autorService.addAutor(autorDTO);
+            autorService.addAutor(autorRegisterDTO);
             return new ResponseEntity<>(
-                    new ResponseDTO(autorDTO.getName(),"Autor salvo com sucesso!"),
+                    new ResponseDTO(autorRegisterDTO.getName(),"Autor salvo com sucesso!"),
                     HttpStatus.OK
             );
         } catch (Exception e){
@@ -55,8 +56,19 @@ public class AutorController {
     }
 
     @GetMapping("/autor")
-    public ResponseEntity<List<Autor>> getAll(){
-        List<Autor> autores = autorService.getAutores();
+    public ResponseEntity<List<AutorResponseDTO>> getAll(){
+        List<AutorResponseDTO> autores = autorService.getAutores();
+        return new ResponseEntity<>(autores, HttpStatus.OK);
+    }
+
+    @GetMapping("/autor/{name}")
+    public ResponseEntity<List<AutorResponseDTO>> getAutorByName(@PathVariable String name){
+        List<AutorResponseDTO> autores = autorService.getAutorByName(name);
+
+        if (autores == null || autores.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(autores, HttpStatus.OK);
     }
 
